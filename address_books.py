@@ -35,8 +35,8 @@ class AddressBook:
                     self.set_contact_dict(self.contact_obj.get_contact())
                 elif choice == 2:
                     first_name = input("Enter first name you want to update")
-                    input_opt = int(input("Enter 1.first_name 2 last_name 3.email 4.zip 5.phone 6.address 7.city "
-                                          "8.state"))
+                    input_opt = int(input("Enter 1.first_name 2 last_name 3.email 4.zip "
+                                          "5.phone 6.address 7.city 8.state"))
                     regex_opt = {
                         1: "first_name",
                         2: "last_name",
@@ -50,9 +50,9 @@ class AddressBook:
                     if input_opt not in regex_opt:
                         print("invalid input")
                     else:
-                        update_data = input("Enter update data ").lower()
+                        update_data = input("Enter update data ")
                         self.update_contact(update_data, regex_opt[input_opt],
-                                            self.contact_obj.get_contact())
+                                            self.contact_dict.get(first_name))
                 elif choice == 3:
                     self.remove_contact(input("Enter first name you want to delete"))
                 elif choice == 4:
@@ -75,6 +75,7 @@ class AddressBook:
         """
         if not self.user.validate_regex(update_data, regex_input):
             return
+
         first_name = data.get("first_name")
         data.pop(regex_input)
         data[regex_input] = update_data
