@@ -14,10 +14,11 @@ class Contact:
         self.regex = UserValidation()
         self.contact = {}
 
-    # contact dict
+    # setter
     def set_contact(self, contact):
         self.contact = contact
 
+    # getter
     def get_contact(self):
         return self.contact
 
@@ -68,4 +69,5 @@ class Contact:
 
             self.add_contact(first_name, last_name, phone_number, address, city, state, zip_code, email)
         except Exception as e:
-            logging.error("Enter valid input")
+            logger.error("e")
+            print(e)
