@@ -18,9 +18,10 @@ class AddressBook:
 
     def create_addressbook(self):
         """
-        Create address book
-        :return:
+
+        :return: addressbook_dict
         """
+
         logger.info("create_addressbook() is called")
 
         EXIT = 5
@@ -56,12 +57,13 @@ class AddressBook:
                 elif choice == 3:
                     self.remove_contact(input("Enter first name you want to delete"))
                 elif choice == 4:
-                    self.display()
+                    self.display(self.get_contact_dict())
                 elif choice == EXIT:
                     break
                 else:
                     print("invalid input")
 
+            return self.contact_dict
         except Exception as e:
             logger.error(e.with_traceback())
 
@@ -100,12 +102,12 @@ class AddressBook:
         """
         return self.contact_dict
 
-    def display(self):
+    def display(self, data):
         """
         printing contact
         :return:
         """
-        print(self.contact_dict)
+        print(data)
 
     def remove_contact(self, first_name):
         """
