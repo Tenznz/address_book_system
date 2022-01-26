@@ -12,7 +12,7 @@ logger.setLevel(logging.DEBUG)
 
 class AddressBook:
     def __init__(self):
-        self.contactlist = list()
+        self.contact_dict = dict()
         self.user = UserValidation()
         self.contact_obj = Contact()
 
@@ -32,12 +32,12 @@ class AddressBook:
                 self.contact_obj = Contact()
                 if choice == 1:
                     self.contact_obj.user_valid_input()
-                    self.set_contactlist()
+                    self.set_contact_dict(self.contact_obj.get_contact())
                 # elif choice == 2:
                 #     address_book.update_contact(input("Enter First Name which you want edit"),
                 #                                 address_book.user_input())
-                # elif choice == 3:
-                #     address_book.delete_contact(input("Enter first name you want to delete"))
+                elif choice == 3:
+                    self.remove_contact(input("Enter first name you want to delete"))
                 elif choice == 4:
                     self.display()
                 elif choice == EXIT:
@@ -46,22 +46,34 @@ class AddressBook:
                     print("invalid input")
 
         except Exception as e:
-            logger.error(e)
-            print(e)
+            logger.error(e.with_traceback())
 
-    def set_contactlist(self):
+    def set_contact_dict(self, data):
         """
         printing contact
         :return:
         """
-        self.contactlist.append(self.contact_obj.get_contact().values())
-        logger.info(f"All contact{self.contact_obj.get_contact().values()}")
-        print(len(self.contactlist))
+        self.contact_dict[data["first_name"]] = data
+        logger.info(f"All contact{data.values()}")
+
+    def get_contact_dict(self):
+        """
+
+        :return: contact_dict
+        """
+        return self.contact_dict
 
     def display(self):
         """
         printing contact
         :return:
         """
-        print(self.contactlist)
+        print(self.contact_dict)
 
+    def remove_contact(self, first_name):
+        """
+        deleting contact from addressbook if found
+        :return: true or false
+        """
+        logger.info("remove_contact() is called")
+        self.contact_dict.pop(first_name)
