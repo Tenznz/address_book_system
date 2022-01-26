@@ -28,14 +28,31 @@ class AddressBook:
         try:
             while True:
                 logger.info("Enter in addressbook menu")
-                choice = int(input("1.Added contact 2.Update 3.Delete 4.Display 5.Exit"))
+                choice = int(input("1.Add 2.Update 3.Delete 4.Display 5.Exit"))
                 self.contact_obj = Contact()
                 if choice == 1:
                     self.contact_obj.user_valid_input()
                     self.set_contact_dict(self.contact_obj.get_contact())
-                # elif choice == 2:
-                #     address_book.update_contact(input("Enter First Name which you want edit"),
-                #                                 address_book.user_input())
+                elif choice == 2:
+                    first_name = input("Enter first name you want to update")
+                    input_opt = int(input("Enter 1.first_name 2 last_name 3.email 4.zip 5.phone 6.address 7.city "
+                                          "8.state"))
+                    regex_opt = {
+                        1: "first_name",
+                        2: "last_name",
+                        3: "email",
+                        4: "zip_code",
+                        5: "phone_number",
+                        6: "address",
+                        7: "city",
+                        8: "state"
+                    }
+                    if input_opt not in regex_opt:
+                        print("invalid input")
+                    else:
+                        update_data = input("Enter update data ").lower()
+                        self.update_contact(update_data, regex_opt[input_opt],
+                                            self.contact_obj.get_contact())
                 elif choice == 3:
                     self.remove_contact(input("Enter first name you want to delete"))
                 elif choice == 4:
@@ -48,14 +65,33 @@ class AddressBook:
         except Exception as e:
             logger.error(e.with_traceback())
 
+    def update_contact(self, update_data, regex_input, data):
+        """
+        update contact
+        :param update_data: contact input
+        :param regex_input:
+        :param data: contact detail in dict
+        :return:
+        """
+        if not self.user.validate_regex(update_data, regex_input):
+            return
+        first_name = data.get("first_name")
+        data.pop(regex_input)
+        data[regex_input] = update_data
+        self.contact_dict[data.get("first_name")] = data
+        if regex_input == "first_name":
+            self.contact_dict.pop(first_name)
+        logger.info(f"{self.contact_dict}")
+
+    # setter
     def set_contact_dict(self, data):
         """
-        printing contact
         :return:
         """
         self.contact_dict[data["first_name"]] = data
         logger.info(f"All contact{data.values()}")
 
+    # getter
     def get_contact_dict(self):
         """
 

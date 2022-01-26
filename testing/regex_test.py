@@ -3,12 +3,12 @@ from address_book_system.regex_validation import UserValidation
 
 def test_regex_name():
     check = UserValidation()
-    assert check.validate_regex("Tenzing", "name")
+    assert check.validate_regex("Tenzing", "first_name")
 
 
 def test_regex_zip():
     check = UserValidation()
-    assert check.validate_regex("123-234", "zip")
+    assert check.validate_regex("123-234", "zip_code")
 
 
 def test_regex_email():
@@ -23,4 +23,4 @@ def test_regex_address():
 
 def test_regex_phone():
     check = UserValidation()
-    assert check.validate_regex("+91 9564564565", "phone")
+    assert check.validate_regex("+91 9564564565", "phone_number")
