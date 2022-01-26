@@ -43,25 +43,25 @@ class Contact:
 
         try:
             first_name = input("First name: ")
-            if not self.regex.validate_regex(first_name, "name"):
+            if not self.regex.validate_regex(first_name, "first_name"):
                 return ""
             last_name = input("Last name: ")
-            if not self.regex.validate_regex(last_name, "name"):
+            if not self.regex.validate_regex(last_name, "last_name"):
                 return ""
             phone_number = input("Phone number: ")
-            if not self.regex.validate_regex(phone_number, "phone"):
+            if not self.regex.validate_regex(phone_number, "phone_number"):
                 return ""
             email = input("Email: ")
             if not self.regex.validate_regex(email, "email"):
                 return ""
             city = input("City: ")
-            if not self.regex.validate_regex(city, "address"):
+            if not self.regex.validate_regex(city, "city"):
                 return ""
             state = input("State: ")
-            if not self.regex.validate_regex(state, "address"):
+            if not self.regex.validate_regex(state, "state"):
                 return ""
             zip_code = input("Zip Code: ")
-            if not self.regex.validate_regex(zip_code, "zip"):
+            if not self.regex.validate_regex(zip_code, "zip_code"):
                 return ""
             address = input("Address: ")
             if not self.regex.validate_regex(address, "address"):
