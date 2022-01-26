@@ -12,5 +12,5 @@ data = {
 }
 address_book_obj = AddressBook()
 address_book_obj.set_contact_dict(data)
-address_book_obj.update_contact("Methok", "first_name", data)
+address_book_obj.update_contact("Methok", "address", data)
 print(address_book_obj.get_contact_dict())
