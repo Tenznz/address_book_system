@@ -16,9 +16,14 @@ if __name__ == "__main__":
         # else:
         #     book_name = input("Addressbook name")
         #     addressbook_menu.get(menu_opt)(book_name)
+        book.sort_by(book_details)
         book_name = input("Addressbook name")
         if menu_opt == 1:
-            book_details[book_name] = book.create_addressbook()
+            if book.search_in_dict(book_name, book_details):
+                print("book name already exist")
+            else:
+                book_details[book_name] = book.create_addressbook()
+
         elif menu_opt == 2:
             if book_name in book_details.keys():
                 book.display(book_details[book_name])

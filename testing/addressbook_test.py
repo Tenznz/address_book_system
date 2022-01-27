@@ -82,10 +82,15 @@ def test_update_contact():
     address_book_obj.update_contact("Methok", "address", data)
     assert address_book_obj.get_contact_dict() == {"Ten": update_data}
 
-    # def test_update_contact():
-#
-#     address_book_obj = AddressBook()
-#
-#     address_book_obj.set_contact_dict(data)
-#     address_book_obj.update_contact("Methok", "first_name", data)
-#     assert
+
+def test_search_in_dict():
+    address_book_obj = AddressBook()
+    test_search_date = {"Ten": data}
+    assert address_book_obj.search_in_dict("Ten", test_search_date)
+
+
+def test_sort_by():
+    address_book_obj = AddressBook()
+    sorted_data = address_book_obj.sort_by(data)
+    expected = ['address', 'city', 'email', 'first_name', 'last_name', 'phone_number', 'state', 'zip_code']
+    assert sorted_data == expected

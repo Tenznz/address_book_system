@@ -66,8 +66,8 @@ class Contact:
             address = input("Address: ")
             if not self.regex.validate_regex(address, "address"):
                 return ""
-
             self.add_contact(first_name, last_name, phone_number, address, city, state, zip_code, email)
+            return first_name
         except Exception as e:
             logger.error("e")
             print(e)
