@@ -8,9 +8,9 @@ class UserValidation:
     def validate_regex(self, string, regex_keys):
         """
 
+        :param regex_keys:
         :param string:
-        :param regex_act: keys
-        :return:
+        :return: true false
         """
         regex = {
             "phone_number": "^[+][0-9]{1,2}?[\\s,-][7-9]{1}[0-9]{9}$",

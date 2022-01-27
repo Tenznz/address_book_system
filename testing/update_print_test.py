@@ -24,3 +24,4 @@ n_data = {
 # ndata={data,mdata}
 address_book_obj.sort_by(data)
 # print(n_data.copy())
+x=(data.items())
