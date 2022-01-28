@@ -1,96 +1,58 @@
-from address_book_system.address_books import AddressBook
+from address_book_system.addressbook import AddressBook
 from address_book_system.contacts import Contact
-
-# logging.basicConfig(filename="addressbook.log",
-#                     format='%(asctime)s %(message)s',
-#                     filemode='w')
-# logger = logging.getLogger()
-# logger.setLevel(logging.DEBUG)
-
-data = {
-    "first_name": "Ten",
-    "last_name": "Duk",
-    "phone_number": "+91 7657657656",
-    "address": "Ejipura",
-    "city": "Bangalore",
-    "state": "Karnataka",
-    "zip_code": "654-654",
-    "email": "dhugkar@gmail.com"
-}
-update_data = {
-    "first_name": "Ten",
-    "last_name": "Duk",
-    "phone_number": "+91 7657657656",
-    "address": "Methok",
-    "city": "Bangalore",
-    "state": "Karnataka",
-    "zip_code": "654-654",
-    "email": "dhugkar@gmail.com"
-}
 
 
 def test_add_contact():
-    """
-    testing add contact correctly
-    :return:
-    """
     contact_obj = Contact()
-    contact_obj.add_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
+    contact_obj.set_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
                             "dhugkar@gmail.com")
-    assert contact_obj.get_contact()["first_name"] == "Ten"
-    assert contact_obj.get_contact()["phone_number"] == "+91 7657657656"
-    assert contact_obj.get_contact() == data
-
-
-def test_fail_add_contact():
-    contact_obj = Contact()
-    contact_obj.add_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
-                            "dhugkar@gmail.com")
-    # assert contact_obj.get_contact()["first_name"] == "Ten"
-    # assert contact_obj.get_contact()["phone_number"] == "+91 7657657656"
-    assert not contact_obj.get_contact() == {
-        "first_name": "Tn",
-        "last_name": "Duk",
-        "phone_number": "+91 7657657656",
-        "address": "Ejipura",
-        "city": "Bangalore",
-        "state": "Karnataka",
-        "zip_code": "654-654",
-        "email": "dhugkar@gmail.com"
-    }
+    assert contact_obj.get_first_name() == "Ten"
 
 
 def test_set_contact():
     address_book_obj = AddressBook()
-    # before = len(address_book_obj.get_contact_dict())
-    address_book_obj.set_contact_dict(data)
-    # after = len(address_book_obj.get_contact_dict())
-    assert address_book_obj.get_contact_dict()["Ten"] == data
+    contact_obj = Contact()
+    contact_obj.set_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
+                            "dhugkar@gmail.com")
+    before = len(address_book_obj.get_contact_dict())
+    address_book_obj.set_contact_dict("Ten", contact_obj)
+    after = len(address_book_obj.get_contact_dict())
+    assert before != after
 
 
 def test_remove_contact():
     address_book_obj = AddressBook()
-    address_book_obj.set_contact_dict(data)
+    contact_obj = Contact()
+    contact_obj.set_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
+                            "dhugkar@gmail.com")
+    address_book_obj.set_contact_dict("Ten", contact_obj)
     assert len(address_book_obj.get_contact_dict()) == 1
-    address_book_obj.remove_contact("Ten")
+    address_book_obj.remove_contact_details("Ten")
     assert len(address_book_obj.get_contact_dict()) == 0
 
 
 def test_update_contact():
     address_book_obj = AddressBook()
-    address_book_obj.set_contact_dict(data)
-    address_book_obj.update_contact("Methok", "address", data)
-    assert address_book_obj.get_contact_dict() == {"Ten": update_data}
+    contact_obj = Contact()
+    contact_obj.set_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
+                            "dhugkar@gmail.com")
 
-
-def test_search_in_dict():
-    address_book_obj = AddressBook()
-    test_search_date = {"Ten": data}
-    assert address_book_obj.search_in_dict("Ten", test_search_date)
+    address_book_obj.set_contact_dict("Ten", contact_obj)
+    # 1.first_name 2.last_name 3.email 4.zip_code 5.phone_number 6.address 7.city 8.state"
+    address_book_obj.update_contact("Methok", 1, contact_obj)
+    assert contact_obj.get_first_name() == "Methok"
 
 
 def test_sort_by():
     address_book_obj = AddressBook()
-    sorted_data = address_book_obj.sort_by(data)
-    expected = ['address', 'city', 'email', 'first_name', 'last_name', 'phone_number', 'state', 'zip_code']
+    contact_obj = Contact()
+    contact_obj.set_contact("Ten", "Duk", "+91 7657657656", "Ejipura", "Bangalore", "Karnataka", "654-654",
+                            "dhugkar@gmail.com")
+    address_book_obj.set_contact_dict("Ten", contact_obj)
+    contact_obj.set_contact("Methok", "Lass", "+91 9657657656", "Loaa", "Bangalore", "Karnataka", "624-354",
+                            "mwthok@gmail.com")
+
+    address_book_obj.set_contact_dict("Methok", contact_obj)
+    sorted_data = address_book_obj.sort_by_name(address_book_obj.get_contact_dict())
+    expected = ['Methok', 'Ten']
     assert sorted_data == expected
