@@ -6,6 +6,11 @@ def test_regex_name():
     assert check.validate_regex("Tenzing", "first_name")
 
 
+def test_regex_last_name():
+    check = UserValidation()
+    assert check.validate_regex("Tenzing", "last_name")
+
+
 def test_regex_zip():
     check = UserValidation()
     assert check.validate_regex("123-234", "zip_code")

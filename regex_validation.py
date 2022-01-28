@@ -25,5 +25,4 @@ class UserValidation:
         if re.search(regex.get(regex_keys), string):
             return True
         else:
-            print("invalid regex")
-            return False
+            raise Exception("invalid regex")
