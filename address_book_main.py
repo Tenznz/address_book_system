@@ -1,33 +1,26 @@
 import logging
 
-from address_book_system.addressbook import AddressBook
+from multi_addressbook import MultiAddressbook
 
-if __name__ == "__main__":
-    book_details = dict()
 
+def main():
+    books = MultiAddressbook()
     while True:
         try:
-            addressbook = AddressBook()
-            menu_opt = int(input("1.Create 2.Display 3.Delete 4.Exit"))
-            if menu_opt == 4:
-                exit()
+            menu_opt = int(input("1.Create 2.Display 3.open 4.Delete 5.Exit"))
 
-            if menu_opt == 1:
-                book_name = input("Addressbook name")
-                if addressbook.duplicate(book_name, book_details):
-                    print("book name already exist")
-                else:
-                    book_details[book_name] = addressbook.create_addressbook()
-
-            elif menu_opt == 2:
-                print(book_details.keys())
-                book_name = input("Addressbook name")
-                if book_name in book_details.keys():
-                    print(book_details[book_name].keys())
-                else:
-                    print("not book found")
-            elif menu_opt == 3:
-                book_details.pop(input("Enter Delete Book name"))
+            menu = {
+                1: books.add_addressbook,
+                2: books.display_addressbook,
+                3: books.update_addressbook,
+                4: books.delete_addressbook,
+                5: exit
+            }
+            menu.get(menu_opt)()
         except Exception as e:
             logging.error(e)
             print(e, "not found")
+
+
+if __name__ == "__main__":
+    main()
